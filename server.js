@@ -1,16 +1,36 @@
-import express from "express";
-import {config} from 'dotenv'
-import router from "./routes/restaurant.js";
-config()
+import express from 'express';
+import { config } from 'dotenv';
+import mongoose from 'mongoose';
+import router from './routes/restaurant.js';
 
-const app=express()
-app.use(express.json()); // Parses json payload in the request body
-app.use(express.urlencoded({ extended: true })); // Parses url encoded payload in the request body
+config();
+
+const app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use('/api', router);
 
+const dbUrl = process.env.DB_URL;
 
-const port = process.env.PORT;
+const connectToDb = async () => {
+    try {
+        await mongoose.connect(dbUrl, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+        console.log('MongoDB connected');
+    } catch (err) {
+        console.error(`MongoDB connection error: ${err}`);
+    }
+};
 
-app.listen(port, ()=>{
-    console.log(`listening on port ${port}`)
-})
+const startServer = async () => {
+    const port = process.env.PORT;
+    await connectToDb();
+    app.listen(port, () => {
+        console.log(`Server listening on port ${port}`);
+    });
+};
+
+startServer();

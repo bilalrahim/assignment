@@ -1,8 +1,8 @@
-import express from 'express'
-import { addMenu } from '../controller/restaurant.js'
+import express from 'express';
+import { addMenu } from '../controllers/restaurant.js';
 
-const router = express.Router()
+const router = express.Router();
 
-router.post('/new-menu', addMenu)
+router.post('/new-menu', addMenu);
 
-export default router 
+export default router;
