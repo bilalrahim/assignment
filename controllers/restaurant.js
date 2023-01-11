@@ -1,22 +1,28 @@
 import Restaurant from "../models/restaurant.js"
 
-const addMenu = async (req, res) => {
-
-    // Finds a restaurant in DB.
-    // If exists updates its menu.
-    // Else creates a new restaurant.
-
+const addUpdateMenu = async (req, res) => {
     try {
         const {restaurantName, menu} = req.body;
         const filter = { restaurantName };
         const update = { menu };
         await Restaurant.findOneAndUpdate(filter, update, { upsert: true });
         res.json({ success: true });
-    } catch (error) {
-        console.error(error);
+    } catch (err) {
+        console.error(err);
         res.status(500).json({ success: false, message: "Failed to update menu" });
     }
 };
 
+const deleteMenu = async (req, res)=>{
+    try {
+        const {restaurantName} = req.body;
+        const filter = { restaurantName };
+        await Restaurant.deleteOne(filter);
+        res.json({ success: true });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Failed to delete menu" });
+    }
+}
 
-export { addMenu }
+export { addUpdateMenu, deleteMenu }

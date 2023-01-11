@@ -1,8 +1,9 @@
 import express from 'express';
-import { addMenu } from '../controllers/restaurant.js';
+import { addUpdateMenu, deleteMenu } from '../controllers/restaurant.js';
 
 const router = express.Router();
 
-router.post('/new-menu', addMenu);
+router.post('/add-update-menu', addUpdateMenu);
+router.delete('/delete-menu', deleteMenu)
 
 export default router;
