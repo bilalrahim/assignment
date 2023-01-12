@@ -18,7 +18,8 @@ const deleteMenu = async (req, res)=>{
     try {
         const {restaurantName} = req.body;
         const filter = { restaurantName };
-        await Restaurant.deleteOne(filter);
+        const update = { $unset: { menu: "" } };
+        await Restaurant.updateOne(filter, update);
         res.json({ success: true });
     } catch (error) {
         console.error(error);
@@ -38,7 +39,7 @@ const addReview = async (req, res) => {
 
 
 
-const updatReview = async (req, res) => {
+const updateReview = async (req, res) => {
     try {
         const { customerName, foodName, restaurantName, review, rating } = req.body;
         const filter = { restaurantName, foodName };
@@ -53,8 +54,8 @@ const updatReview = async (req, res) => {
 
 const deleteReview = async (req, res)=>{
     try {
-        const {restaurantName, foodName} = req.body;
-        const filter = { restaurantName, foodName };
+        const {restaurantName, foodName, customerName} = req.body;
+        const filter = { restaurantName, foodName, customerName };
         await Reviews.deleteOne(filter);
         res.json({ success: true });
     } catch (error) {
@@ -150,4 +151,4 @@ const getTopRestaurant = async (req, res) => {
 };
 
 
-export { addUpdateMenu, deleteMenu, addReview, updatReview, deleteReview, getRestaurantOverallRating, getRestaurantFoodOverallRating, getRestaurantFoodReview, getTopRestaurant }
+export { addUpdateMenu, deleteMenu, addReview, updateReview, deleteReview, getRestaurantOverallRating, getRestaurantFoodOverallRating, getRestaurantFoodReview, getTopRestaurant }
