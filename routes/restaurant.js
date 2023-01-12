@@ -1,5 +1,15 @@
 import express from 'express';
-import { addReview, addUpdateMenu, deleteMenu, deleteReview, getRestaurantFoodOverallRating, getRestaurantFoodReview, getRestaurantOverallRating, getTopRestaurant, updatReview } from '../controllers/restaurant.js';
+import { 
+    addUpdateMenu, 
+    deleteMenu, 
+    addReview, 
+    updateReview, 
+    deleteReview, 
+    getRestaurantFoodOverallRating, 
+    getRestaurantFoodReview, 
+    getRestaurantOverallRating, 
+    getTopRestaurant 
+} from '../controllers/restaurant.js';
 
 const router = express.Router();
 
@@ -7,13 +17,13 @@ router.post('/add-update-menu', addUpdateMenu);
 router.delete('/delete-menu', deleteMenu);
 
 router.post('/add-review', addReview)
-router.put('/update-review', updatReview);
+router.put('/update-review', updateReview);
 router.delete('/delete-review', deleteReview)
 
-router.get('/restaurant-overall-rating', getRestaurantOverallRating)
-router.get('/restaurant-food-overall-rating', getRestaurantFoodOverallRating)
+router.get('/restaurant/overall-rating', getRestaurantOverallRating)
+router.get('/restaurant/food-overall-rating', getRestaurantFoodOverallRating)
 
-router.get('/restaurant-food-reviews', getRestaurantFoodReview)
+router.get('/restaurant/food-reviews', getRestaurantFoodReview)
 
 router.get('/top-restaurant', getTopRestaurant)
 
